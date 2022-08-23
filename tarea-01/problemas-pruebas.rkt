@@ -15,9 +15,9 @@
     (check-equal? (countdown 0)
                   '(0)))
   
- ;(test-case "insertL"
-   ; (check-equal? (insertL 'x 'y '(x z z x y x))
-                 ; '(y x z z y x y y x)))
+ (test-case "insertL"
+    (check-equal? (insertL 'x 'y '(x z z x y x))
+                  '(y x z z y x y y x)))
   
   (test-case "remv-1st"
     (check-equal? (remv-1st 'x '(x y z x))
@@ -46,19 +46,19 @@
   (test-case "filter"
     (check-equal? (filter even? '(1 3 5))
                   '()))
-  #|
+  
   (test-case "zip"
     (check-equal? (zip '(1 2 3) '(a b c))
                   '((1 . a) (2 . b) (3 . c)))
-    (check-equal? (zip '(1 2 3 4 5 6) '(a b c))
-                  '((1 . a) (2 . b) (3 . c)))
-    (check-equal? (zip '(1 2 3) '(a b c d e f))
+    (check-equal? (zip '(3 4 5) '(a b c))
+                  '((3 . a) (4 . b) (5 . c)))
+    (check-equal? (zip '(1 2 3) '(a b c d e))
                   '((1 . a) (2 . b) (3 . c))))
   
   (test-case "list-index-ofv"
     (check-eqv? (list-index-ofv 'x '(x y z x x)) 0)
     (check-eqv? (list-index-ofv 'x '(y z x x)) 2))
-  
+   (check-eqv? (list-index-ofv 'x '(y z x x)) 2)
   (test-case "append"
     (check-equal? (append '(42 120) '(1 2 3))
                   '(42 120 1 2 3))
@@ -88,26 +88,15 @@
     (check-eqv? (binary->natural '(1 0 1 0 1)) 21)
     (check-eqv? (binary->natural '(1 1 1 1 1 1 1 1 1 1 1 1 1)) 8191))
   
+  
   (test-case "div"
     (check-eqv? (div 25 5) 5)
-    (check-eqv? (div 36 6) 6))
-  
-  (test-case "append-map"
-    (check-equal? (append-map countdown (countdown 5))
-                  '(5 4 3 2 1 0 4 3 2 1 0 3 2 1 0 2 1 0 1 0 0)))
+    (check-eqv? (div 36 6) 6)) 
   
   (test-case "set-difference"
     (check-equal? (set-difference '(1 2 3 4 5) '(2 6 4 8))
                   '(1 3 5)))
-  
-  (test-case "foldr"
-    (check-equal? (foldr cons '() '(1 2 3 4))
-                  '(1 2 3 4))
-    (check-eqv? (foldr + 0 '(1 2 3 4))
-                10)
-    (check-eqv? (foldr * 1 '(1 2 3 4))
-                24))
-  
+ 
   (test-case "powerset"
     (check-equal? (powerset '(3 2 1))
                   '((3 2 1) (3 2) (3 1) (3) (2 1) (2) (1) ()))
@@ -117,15 +106,15 @@
   (test-case "cartesian-product"
     (check-equal? (cartesian-product '((5 4) (3 2 1)))
                   '((5 3) (5 2) (5 1) (4 3) (4 2) (4 1))))
-  
-  (test-case "snowball"
-    (check-eqv? (snowball 12) 1)
-    (check-eqv? (snowball 120) 1)
-    (check-eqv? (snowball 9999) 1))
-  
-  (test-case "snowball"
-    (let ((ns (make-base-namespace)))
-      (check-equal? (eval quine ns) quine)
-      (check-equal? (eval (eval quine ns) ns) quine)))|#)
+  (test-case "cartesian-product"
+    (check-equal? (cartesian-product '((5) (3 2 1)))
+                  '((5 3) (5 2) (5 1))))
+  (test-case "cartesian-product"
+    (check-equal? (cartesian-product '((5 4) (3 2 1 x)))
+                  '((5 3) (5 2) (5 1) (5 x) (4 3) (4 2) (4 1) (4 x))))
+  (test-case "cartesian-product"
+    (check-equal? (cartesian-product '(() (a b c)))
+                  '()))
+ )
 
 (run-tests pruebas 'verbose)

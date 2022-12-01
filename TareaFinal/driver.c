@@ -42,17 +42,12 @@ void print_ast(FILE* out, expression e) {
     print_ast(out, let_val(e));
     fprintf(out, " in ");
     print_ast(out, let_body(e));
-
   } else if (is_proc(e)) {
     fprintf(out, "proc %s = ", name_of(proc_id(e)));
     print_ast(out, proc_body(e));
-
   } else if (is_cexpr(e)) {
-
     print_ast(out, cexpr_e1(e));
-
     print_ast(out, cexpr_e2(e));
-
   } else if (is_letrec(e)) {
     printf("letrec\n");
   } else {
@@ -265,9 +260,7 @@ expval value_of(expression e, environment env) {
 
 
   }else if (is_proc(e)) {
-    /* PROC */
 
-    //return val;
     return make_procval(e);
 
   }else if (is_cexpr(e)) {
